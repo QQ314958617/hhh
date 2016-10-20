@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#login{margin-left:180px;}
+		</style>
+		<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.7.2/jquery.js"></script>
+	</head>
+	<body>
+		用户名：<input type="text" id="username" /><br/><br/>
+		密&nbsp;码：<input type="password" id="pd" /><br /><br />
+		<input type="button" value="登录淘宝" id="login"/>
+		
+	</body>
+	<script type="text/javascript">
+		function $(id){
+			return document.getElementById(id);
+		}
+		window.onload=function(){
+			var oUsername=$("username");
+			var oPd=$("pd");
+			var oBtn=$("login");
+			if(getCookie("username")){
+				oUsername.value=getCookie("username");
+				oUsername.onclick=function(){
+				oPd.value=getCookie("password");
+			    }
+			
+			}
+		};
+		
+		var oUsername=$("username");
+		var oPd=$("pd");
+		var oBtn=$("login");
+		
+		oBtn.onclick=function(){
+			var a=confirm("是否写入cookie？");
+			if(a){
+				setCookie("username",oUsername.value,10);
+				setCookie("password",oPd.value,10);
+			}
+			document.body.innerHTML="";
+			alert("登录成功");
+			document.write("<strong>"+oUsername.value+"已登录</strong>");
+		}
+		
+	</script>
+</html>

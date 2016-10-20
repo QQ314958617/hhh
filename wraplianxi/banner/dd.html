@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			ul,li{list-style: none;}
+			#main{position: relative;}
+			
+		</style>
+		<script src="js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="main">
+			<div id="test">请点击下面的按钮，通过 jQuery AJAX 改变这段文本。</div>
+			<button id="btn1" type="button">获得外部的内容</button>
+		</div>
+	</body>
+	<script>
+		 $("#btn1").click(function(){
+		    $("#test").load("d1.html").html();
+		    
+		  })
+		
+	</script>
+</html>

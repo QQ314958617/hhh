@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	
+</head>
+<body>
+	<!--enctype:数据格式   默认application/x-www-form-urlencoded-->
+	<form method="get" action="act.php">
+		用户名：<input type="text" name="user" />
+		密&nbsp;码:<input type="text" name="pass" />
+		<!-- <input type="submit" /> -->
+		<input type="button" value="发送" />
+	</form>
+		
+	
+</body>
+<script>
+	aInput=document.getElementsByTagName("input");
+	aInput[2].onclick=function(){
+		var xhr=null;
+		try{
+			xhr=new XMLHttpRequest();
+		}catch(e){
+			xhr=new ActiveXObject('Microsoft.XMLHTTP');
+		}
+		xhr.open("get","act.php?user="+aInput[0].value+"&pass="+aInput[1].value,true);
+		xhr.send();
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4){
+				var data=JSON.parse(xhr.responseText).msg
+				alert(data);
+			}
+		}
+		
+	}
+	
+	//常规ajax使用  
+	//xhr的状态码
+	//get请求数据
+	
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div class="box">
+			<input type="text" name="" id="user" value="" />
+			<input type="password" name="" id="pass" value="" />
+			<input type="button" name="btn" id="btn" value="提交" />
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				$("#btn").click(function(){
+					$.ajax({
+						type:"get",
+						url:"act.php",
+						data:{user:$("#user").val(),pass:$("#pass").val()},
+						dataType:'json',
+						success:function(data){
+							alert(data.msg)
+						}
+					});
+				})
+				
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#login{margin-left:180px;}
+		</style>
+		<script type="text/javascript">
+			function setCookie(key,value,time){
+				var mydate =new Date();
+				mydate.setDate(mydate.getDate()+time);
+				document.cookie=key+"="+encodeURI(value)+";expires="+mydate.toGMTString();
+			}
+			
+			function getCookie(key){
+				var str=document.cookie;
+					var arr=str.split("; ");
+					for(var i=0;i<arr.length;i++){
+						var newArr=arr[i].split("=");
+						if(newArr[0]==key){
+							return decodeURI(newArr[1]);
+						}
+						
+					};
+			}
+			
+			function removeCookie(key){
+				setCookie(key,"",-1);
+			}
+		</script>
+	</head>
+	<body>
+		用户名：<input type="text" id="username" /><br/><br/>
+		密&nbsp;码：<input type="password" id="pd" /><br /><br />
+		<input type="button" value="登录淘宝" id="login"/>
+		
+	</body>
+	<script type="text/javascript">
+		function $(id){
+			return document.getElementById(id);
+		}
+		window.onload=function(){
+			var oUsername=$("username");
+			var oPd=$("pd");
+			var oBtn=$("login");
+			if(getCookie("username")){
+				oUsername.value=getCookie("username");
+				oUsername.onclick=function(){
+				oPd.value=getCookie("password");
+			    }
+			
+			}
+		};
+		
+		var oUsername=$("username");
+		var oPd=$("pd");
+		var oBtn=$("login");
+		
+		oBtn.onclick=function(){
+			var a=confirm("是否写入cookie？");
+			if(a){
+				setCookie("username",oUsername.value,10);
+				setCookie("password",oPd.value,10);
+			}
+			document.body.innerHTML="";
+			alert("登录成功");
+			document.write("<strong>"+oUsername.value+"已登录</strong>");
+		}
+		
+	</script>
+	
+</html>

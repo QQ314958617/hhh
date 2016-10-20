@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding:0;}
+			ul,li{list-style: none;}
+			html{
+				height:100%;
+				background: url(images/2.jpg) no-repeat center center;
+			}
+			.oim{display: block;margin:100px auto 0;width:280px;}
+			#box{width:640px;height:40px;margin:10px auto 0;}
+			.xi{border: none;outline: none;height:40px;font-size:16px;}
+			#tex{width:535px;padding-left:5px;}
+			#btn{width:100px;;cursor: pointer;color:#fff;background: #38f;}
+			#list{margin-top:1px;}
+			#list li{line-height:30px;padding-left:5px;background: #fff;font-size:14px;}
+			#list .yes{background:#ABC2DF;}
+		</style>
+		<script type="text/javascript">
+			function fn(data){
+					var str="";
+					var oUl=document.getElementById("list");
+					for(var i=0;i<data.s.length;i++){
+						str+="<li>"+data.s[i]+"</li>"
+					}
+					oUl.innerHTML=str;
+					var aLi=oUl.getElementsByTagName("li");
+					var oTex=document.getElementById("tex");
+					for(var i=0;i<aLi.length;i++){
+						aLi[i].onclick=function(){
+							oTex.value=this.innerHTML
+							oUl.innerHTML=""
+						}
+					}
+					var num=-1;
+				document.onkeydown=function(ev){
+					var e=ev||window.event;
+					
+					if(e.keyCode==38||e.keyCode==40){
+						
+						for(var i=0;i<aLi.length;i++){
+							aLi[i].className=""
+						}
+						if(e.keyCode==40){
+							num++
+							
+							if(num>=aLi.length){
+								num=0
+							}
+						}if(e.keyCode==38){
+							num--
+							if(num<=-1){
+								num=aLi.length-1
+							}	
+						}
+						aLi[num].className="yes"
+						oTex.value=aLi[num].innerHTML
+						return false;
+					}
+					
+				}
+				oTex.onblur=function(){
+					oUl.innerHTML=""
+				}
+				
+			}
+			window.onload=function(){
+				var oTex=document.getElementById("tex");
+				var oBtn=document.getElementById("btn");
+				oTex.oninput=function(){
+					
+					var oScript=document.createElement("script")
+					oScript.src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+oTex.value+"&cb=fn"
+					document.body.appendChild(oScript)
+				}
+				oBtn.onclick=function(){
+		 	    	 window.open("http://www.baidu.com/s?wd="+oTex.value+"","_blank");
+		 		}	
+			}
+		</script>
+	</head>
+	<body>
+		<img src="images/logo.png" class="oim"/>
+		<div id="box">
+			<form action="javascript:;" method="post">
+				<input type="text" name="" id="tex" class="xi"/><input type="submit" id="btn"  class="xi"value="百度一下"/>
+			</form>
+			<ul id="list">
+
+			</ul>
+		</div>
+		
+	</body>
+</html>

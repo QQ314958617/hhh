@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#but{margin-left:190px;}
+		</style>
+		<script src="shiyong.js"></script>
+		<script type="text/javascript">
+			window.onload=function(){
+				var oText=$("#text");
+				var oPass=$("#pass");
+				var oBut=$("#but");
+				if(getCookie("username")){
+					oText.value=getCookie("username")
+					oText.onclick=function(){
+						oPass.value=getCookie("password")
+					}
+				}
+				oBut.onclick=function(){
+					var strT=oText.value;
+				    var strP=oPass.value;
+				    
+					var a=confirm("是否自动保存")
+					if(a){
+						setCookie("username",strT,5)
+						setCookie("password",strP,5)
+					}
+					document.body.innerHTML="";
+					alert("登陆成功");
+					document.write(strT+"已登录")
+				}
+				
+				
+			}
+		</script>
+	</head>
+	<body>
+		用户名：<input type="text" placeholder="请输入用户名" id="text"/><br/>
+		密&nbsp;码：<input type="password" placeholder="" id="pass"/><br/>
+		<input type="button" value="登录" id="but"/>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			ul,li{list-style: none;}
+			#main{position: relative;}
+			#main img{width: 200px;height: 150px;display: block;position: absolute;}
+			#img01{left:0;top:0;}
+			#img02{left:250px;top:0;}
+			#img03{left:0;top:200px;}
+			#img04{left:250px;top:200px;}
+		</style>
+		<script src="js/tool.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="main">
+			<img id="img01" src="img/1.jpg" alt="">
+			<img id="img02" src="img/2.jpg" alt="">
+			<img id="img03" src="img/3.jpg" alt="">
+			<img id="img04" src="img/4.jpg" alt="">	
+		</div>
+	</body>
+	<script type="text/javascript">
+		var aImg01=$("#img01");
+		var aImg02=$("#img02");
+		var aImg03=$("#img03");
+		var aImg04=$("#img04");
+		var aImg=$("img");
+		drag(aImg01)
+		drag(aImg02)
+		drag(aImg03)
+		drag(aImg04)
+	</script>
+</html>

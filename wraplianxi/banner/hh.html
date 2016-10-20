@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			ul,li{list-style: none;}
+			.main {
+			    width: 1000px;
+			    margin: 0 auto;
+			    position: relative;
+			}
+			.ch-grid {
+			    margin: 20px 0 0 0;
+			    padding: 0;
+			    list-style: none;
+			    display: block;
+			    text-align: center;
+			    width: 100%;
+			}
+			.ch-grid li {
+			    width: 166px;
+			    height: 166px;
+			    display: inline-block;
+			    margin: 16px;
+			    float: left;
+			}
+			.ch-item {
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+				position: relative;
+				cursor: default;
+
+					
+				-webkit-transition: all 0.4s ease-in-out;
+				-moz-transition: all 0.4s ease-in-out;
+				-o-transition: all 0.4s ease-in-out;
+				-ms-transition: all 0.4s ease-in-out;
+				transition: all 0.4s ease-in-out;
+			}
+
+			.ch-img-1 { 
+				background-image: url(img/1.jpg);
+			}
+
+			.ch-img-2 { 
+				background-image: url(img/1.jpg);
+			}
+
+			.ch-img-3 { 
+				background-image: url(img/1.jpg);
+			}
+			.ch-img-4 {
+			    background-image: url(img/1.jpg);
+			}
+
+
+			.ch-info {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+				opacity: 0;
+				
+				-webkit-transition: all 0.4s ease-in-out;
+				-moz-transition: all 0.4s ease-in-out;
+				-o-transition: all 0.4s ease-in-out;
+				-ms-transition: all 0.4s ease-in-out;
+				transition: all 0.4s ease-in-out;
+				
+				-webkit-transform: scale(0);
+				-moz-transform: scale(0);
+				-o-transform: scale(0);
+				-ms-transform: scale(0);
+				transform: scale(0);
+				
+				-webkit-backface-visibility: hidden; /*for a smooth font */
+
+			}
+
+			.ch-info h3 {
+				color: #fff;
+				text-transform: uppercase;
+				position: relative;
+				letter-spacing: 2px;
+				font-size: 18px;
+			    line-height: 30px;
+			    font-weight: bold;
+				margin: 0 30px;
+				padding: 30px 0 0 0;
+				text-shadow: 
+					0 0 1px #fff, 
+					0 1px 2px rgba(0,0,0,0.3);
+			}
+
+			.ch-info p {
+				color: #fff;
+				margin: 0 10px;
+				font-size: 12px;
+				line-height:24px;
+			}
+
+			.ch-info p a {
+				display: block;
+				color: #fff;
+				color: rgba(255,255,255,0.9);
+				font-style: normal;
+				font-weight: 700;
+				text-transform: uppercase;
+				font-size: 9px;
+				letter-spacing: 1px;
+				padding-top: 4px;
+				font-family: 'Open Sans', Arial, sans-serif;
+			}
+
+			.ch-info p a:hover {
+				color: #fff222;
+				color: rgba(255,242,34, 0.8);
+			}
+
+			.ch-item:hover {
+				box-shadow: 
+					inset 0 0 0 83px rgba(165,37,28, 0.8),
+			        0 1px 2px rgba(0,0,0,0.1);
+			}
+
+			.ch-item:hover .ch-info {
+				opacity: 1;
+				
+				-webkit-transform: scale(1);
+				-moz-transform: scale(1);
+				-o-transform: scale(1);
+				-ms-transform: scale(1);
+				transform: scale(1);	
+			}
+				
+
+		</style>
+		<script src="js/shiyong.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<section class="main">
+        <ul class="ch-grid">
+            <li>
+                <div class="ch-item ch-img-1">
+                    <div class="ch-info">
+                        <h3>谷雨</h3>
+                        <p>浙江省网络营销品牌顾问，温州大学、浙江理工大学外聘教授、创业导师。</p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="ch-item ch-img-2">
+                    <div class="ch-info">
+                        <h3>喻发兵</h3>
+                        <p>中国鞋类电子商务的先驱者，浙江电子商务发展的见证者及参与者。<a href="">More</a></p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="ch-item ch-img-4">
+                    <div class="ch-info">
+                        <h3>张建</h3>
+                        <p>5年网络行业从业经验，3年电子商务资深运营实战，缔造过多个一流项目。</p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="ch-item ch-img-3">
+                    <div class="ch-info">
+                        <h3>余牛</h3>
+                        <p>高级网络营销工程师，具有多个大型电子商务项目架构和运营管理经验。</p>
+                    </div>
+                </div>
+            </li>
+            
+        </ul>
+    </section>
+
+	</body>
+	<script>
+		
+	</script>
+</html>

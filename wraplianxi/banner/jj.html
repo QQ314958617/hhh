@@ -1,0 +1,199 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">  
+    <meta http-equiv=”X-UA-Compatible” content=”IE=edge,chrome=1″/>  
+    <link rel="shortcut icon" href="images/send.png" type="/image/x-icon">  
+  
+    <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>  
+    <title>force</title>  
+  
+    <style>  
+        * {  
+            margin: 0;   
+            padding: 0;  
+        }  
+        body, html {  
+            width: 100%;  
+            height: 100%;  
+        }  
+        .cav {  
+            position: absolute;  
+            top: 0;  
+            left: 0;  
+        }  
+        .dot {  
+            width: 10px;  
+            height: 10px;  
+            background: red;  
+            position: absolute;  
+        }  
+          
+  
+    </style>  
+</head>  
+<body>  
+    <canvas class="cav"></canvas>  
+    <div class="dot"></div>  
+<script>  
+    ;$(function() {  
+        var $cav = $('.cav');  
+        var $cavParent = $cav.parent();  
+  
+        var cav = $cav[0].getContext('2d'),  
+            backColor = '#000',//背景颜色  
+            frontColor = '#fff',//点颜色  
+            mouseArr = [0, 0, 80];//鼠标位置和极限半径  
+  
+        var cavW = $cavParent.width(),  
+            cavH = $cavParent.height(),  
+            dotArr = [],  
+            bezierArr = [],  
+            num = 50,  
+            step = 300;  
+  
+        $cav.attr({  
+            'width': cavW,  
+            'height': cavH,  
+        }).css({  
+            'background': backColor,  
+        });  
+  
+        $cav.on('mousemove', function(e) {  
+            mouseArr[0] = e.offsetX;  
+            mouseArr[1] = e.offsetY;  
+        });  
+  
+        //生成随机点  
+        for(var i=0; i<num; i++) {  
+            var cavL1 = Math.random()*cavW,  
+                cavT1 = Math.random()*cavH,  
+                cavL2 = Math.random()*cavW,  
+                cavT2 = Math.random()*cavH,  
+                cavL3 = Math.random()*cavW,  
+                cavT3 = Math.random()*cavH,  
+                cavL4 = Math.random()*cavW,  
+                cavT4 = Math.random()*cavH,  
+                cavO = Math.random(),//透明度  
+                cavR = cavO*2+1,//尺寸  
+                cavD = parseInt(Math.random()*100)+step;//点的个数  
+                cavT = 0;//自身计数器  
+  
+            dotArr[i] = [[cavL1, cavT1]/*0*/, [cavL2, cavT2]/*1*/, [cavL3, cavT3]/*2*/, [cavL4, cavT4]/*3*/, cavO/*4*/, cavR/*5*/, cavD/*6*/, cavT/*7*/];//存储坐标  
+  
+            var cp = [new Point2D(dotArr[i][0][0], dotArr[i][0][1]), new Point2D(dotArr[i][1][0], dotArr[i][1][1]), new Point2D(dotArr[i][2][0], dotArr[i][2][1]), new Point2D(dotArr[i][3][0], dotArr[i][3][1])];    
+            var numberOfPoints=dotArr[i][6];    
+            var curve=[];    
+            ComputeBezier(cp, numberOfPoints, curve);  
+            bezierArr[i] = curve;  
+        }  
+  
+        setInterval(function() {  
+            cav.clearRect(0, 0, cavW, cavH);  
+            //移动  
+            for(var i=0; i<num; i++) {  
+                  
+                    if(dotArr[i][7] >= dotArr[i][6]) {//走到最后一个点  
+                        var cavL1 = Math.random()*cavW,  
+                            cavT1 = Math.random()*cavH,  
+                            cavL2 = Math.random()*cavW,  
+                            cavT2 = Math.random()*cavH,  
+                            cavL3 = Math.random()*cavW,  
+                            cavT3 = Math.random()*cavH,  
+                            cavL4 = Math.random()*cavW,  
+                            cavT4 = Math.random()*cavH,  
+                            cavO = Math.random(),//透明度  
+                            cavR = cavO*2+1,//尺寸  
+                            cavD = parseInt(Math.random()*100)+step;//点的个数  
+                            cavT = 0;//自身计数器  
+  
+                        dotArr[i] = [[bezierArr[i][dotArr[i][6]-1].x, bezierArr[i][dotArr[i][6]-1].y]/*0*/, [cavL2, cavT2]/*1*/, [cavL3, cavT3]/*2*/, [cavL4, cavT4]/*3*/, dotArr[i][4]/*4*/, dotArr[i][5]/*5*/, cavD/*6*/, cavT/*7*/];//存储坐标  
+  
+                        var cp = [new Point2D(dotArr[i][0][0], dotArr[i][0][1]), new Point2D(dotArr[i][1][0], dotArr[i][1][1]), new Point2D(dotArr[i][2][0], dotArr[i][2][1]), new Point2D(dotArr[i][3][0], dotArr[i][3][1])];    
+                        var numberOfPoints=dotArr[i][6];    
+                        var curve=[];    
+                        ComputeBezier(cp, numberOfPoints, curve);  
+                        bezierArr[i] = curve;  
+                    }else {  
+                        if(Math.pow(bezierArr[i][dotArr[i][7]].x-mouseArr[0], 2)+Math.pow(bezierArr[i][dotArr[i][7]].y-mouseArr[1], 2) <= Math.pow(mouseArr[2], 2)) {  
+                            cav.beginPath();  
+                            cav.globalAlpha = dotArr[i][4];  
+                            cav.strokeStyle = frontColor;  
+                            cav.lineTo(mouseArr[0],mouseArr[1]);  
+                            cav.lineTo(bezierArr[i][dotArr[i][7]].x, bezierArr[i][dotArr[i][7]].y);  
+                            cav.stroke();  
+                        }//else {  
+                            cav.beginPath();  
+                            cav.globalAlpha = dotArr[i][4];  
+                            cav.fillStyle = frontColor;  
+                            cav.arc(bezierArr[i][dotArr[i][7]].x, bezierArr[i][dotArr[i][7]].y, dotArr[i][5], 0, 2*Math.PI);  
+                            cav.fill();  
+                        //}  
+                    }  
+                    dotArr[i][7] += 1;  
+                  
+                  
+            }  
+        }, 20);  
+  
+            
+          
+  
+        function Point2D(x, y){    
+            this.x=x||0.0;    
+            this.y=y||0.0;    
+        }  
+        function PointOnCubicBezier(cp, t) {//cp为4个Point2D点，0<=t<=1  
+            var ax, bx, cx;    
+            var ay, by, cy;    
+            var tSquared, tCubed;    
+            var result = new Point2D;    
+            
+            //计算多项式系数   
+            cx = 3.0 * (cp[1].x - cp[0].x);    
+            bx = 3.0 * (cp[2].x - cp[1].x) - cx;    
+            ax = cp[3].x - cp[0].x - cx - bx;    
+            
+            cy = 3.0 * (cp[1].y - cp[0].y);    
+            by = 3.0 * (cp[2].y - cp[1].y) - cy;    
+            ay = cp[3].y - cp[0].y - cy - by;    
+            
+            //计算位于参数值t的曲线点  
+            tSquared = t * t;    
+            tCubed = tSquared * t;    
+            
+            result.x = (ax * tCubed) + (bx * tSquared) + (cx * t) + cp[0].x;    
+            result.y = (ay * tCubed) + (by * tSquared) + (cy * t) + cp[0].y;    
+            
+            return result;    
+        }  
+  
+        //ComputeBezier以控制点cp所产生的曲线点，填入Point2D的阵列，必须分配足够的记忆体，其<sizeof(Point2D) numberOfPoints>  
+        function ComputeBezier(cp, numberOfPoints, curve) {    
+            var dt;    
+            var i;    
+            
+            dt = 1.0 / ( numberOfPoints - 1 );    
+            
+            for( i = 0; i < numberOfPoints; i++)    
+                curve[i] = PointOnCubicBezier( cp, i*dt );    
+        }    
+            
+        /*var i=0, dot=$('.dot')[0];    
+        setInterval(function (){    
+            var j = (i<100)?i:(199-i);    
+            dot.style.left=curve[j].x+'px';    
+            dot.style.top=100-curve[j].y+'px';    
+            if(++i==200)i=0;    
+        }, 50); */  
+  
+  
+  
+  
+  
+  
+    });  
+</script>  
+</body>  
+</html>  

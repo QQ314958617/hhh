@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			ul,li{list-style: none;}
+			/*#main{position: relative;}*/
+			#box li{width: 100px;height: 100px;background:#f00;}
+		</style>
+		<script src="js/shiyong.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="main">
+			<ul id="box">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<button id="btn">运动</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var Box=$("#box");
+		var aLi=$("li",Box);
+		var Btn=$("#btn");
+		var j=0;
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].onmouseover=function(){
+				$this=this;
+				startMove(this,{"width":500,"opacity":50},6)
+			}
+			aLi[i].onmouseout=function(){
+				startMove(this,{"width":100,"opacity":100},6)
+			}
+		}
+		
+	</script>
+</html>

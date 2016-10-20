@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			ul,li{list-style: none;}
+			input{position: absolute; top:320px; width: 20px;}
+			img{display: block;}
+			#main{position: relative; margin: 0 auto; width: 400px; height: 360px;}
+			#box{ height: 300px; overflow: hidden; position: relative;}
+			#box li{position: absolute; left: 0; top: 0; opacity: 0; z-index: 0;}
+			#box img{width: 400px; height: 300px;}
+			#foot{width: 320px; height: 60px; position: relative; margin: 0 auto; overflow: hidden;}
+			#foot ul{position: absolute; left: 0;}
+			#foot li{float: left; padding:2px;}
+			#foot img{width: 76px; height: 56px;}
+			#foot div{width: 78px; height: 58px; border: 1px solid red; position: absolute; left: 0;}
+			#lbtn{left: 0;}
+			#rbtn{right: 0;}
+		</style>
+		<script src="js/shiyong.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="main">
+			<ul id="box">
+				<li style="opacity: 1;"><img src="img/1.jpg"/></li>
+				<li><img src="img/2.jpg"/></li>
+				<li><img src="img/3.jpg"/></li>
+				<li><img src="img/4.jpg"/></li>
+				<li><img src="img/5.jpg"/></li>
+				<li><img src="img/6.jpg"/></li>
+			</ul>
+			<div id="foot">
+				<ul>
+					<li><img src="img/1.jpg"/></li>
+					<li><img src="img/2.jpg"/></li>
+					<li><img src="img/3.jpg"/></li>
+					<li><img src="img/4.jpg"/></li>
+					<li><img src="img/5.jpg"/></li>
+					<li><img src="img/6.jpg"/></li>
+				</ul>
+				<div></div>
+			</div>
+			<input type="button" id="lbtn" value="&lt" />
+			<input type="button" id="rbtn" value="&gt" />
+		</div>
+	</body>
+	<script type="text/javascript">
+		var oBox=$("#box");
+		var aLi=$("li",oBox);
+		var oFoot=$("#foot");
+		var oUl=$("ul",oFoot)[0];
+		var aSml=$("li",oUl);
+		var oPre=$("input")[0];
+		var oNex=$("input")[1];
+		var oDiv=$("div",oFoot)[0];
+		var bOff=true;
+		var j=0;
+		var num=0;
+		var iWidth=oDiv.offsetWidth;
+		var test=oFoot.offsetWidth-iWidth;
+		oBox.innerHTML +=oBox.innerHTML;
+		oUl.innerHTML +=oUl.innerHTML;
+		oUl.style.width=aSml.length*iWidth+"px";
+		for (var i = 0; i < aSml.length; i++) {
+			aSml[i].index=i;
+			aSml[i].onclick=function(){
+				if(bOff){
+					num=this.index;
+					opct();
+					startMove(oDiv,{"left":aSml[num].offsetLeft+oUl.offsetLeft},6,clear);
+				}
+				bOff=false;
+			}
+		}
+		oPre.onclick=function(){
+			cli(0,0,-aSml.length/2*iWidth+"px",iWidth,-iWidth,0,-1);
+		}
+		oNex.onclick=function(){
+			cli(oFoot.offsetWidth-iWidth,oFoot.offsetWidth-oUl.offsetWidth,(oFoot.offsetWidth-oUl.offsetWidth/2)+"px",-iWidth,iWidth,aLi.length-1,1);
+		}
+		function clear(){bOff=true;}
+		function opct(){
+			j++;
+			for (var i = 0; i < aLi.length; i++) {
+				if(i==num)continue;
+				aLi[i].style.zIndex=j;
+				startMove(aLi[i],{"opacity":0},6);
+			}
+			aLi[num].style.opacity=1;	
+		}
+		function cli(judo,judt,ol,iwo,iwt,judl,k){
+			if(bOff){
+				if(oDiv.offsetLeft==judo){
+					if(oUl.offsetLeft==judt){
+						oUl.style.left=ol;
+					}
+					startMove(oUl,{"left":oUl.offsetLeft+iwo},6,clear);
+				}else{
+					startMove(oDiv,{"left":oDiv.offsetLeft+iwt},6,clear)
+				}
+				num= num==judl?aLi.length/2:num;
+				num=num+k;
+				opct();
+			}
+			bOff=false;
+		}
+	</script>
+</html>

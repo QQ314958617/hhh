@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			ul,li{list-style: none;}
+
+			#box{overflow: hidden;width:700px;height:102px;margin:50px auto;position: relative;}
+			#box span{display: block;position: absolute;top: 0;left:0;width:102px;height:102px;background: #00f;z-index:10;}
+			/*#box ul{position: absolute;z-index:10;}
+			#box li{float:left;width:100px;height:100px;margin-right:10px;border:1px solid #f00;}
+			#box li a{display: block; text-decoration: none;color:#f00;line-height:100px;text-align:center;width:100px;transition-duration:1s;}*/
+			/*#box .on a{color:#fff;}*/
+			
+			#box li{float:left;width:100px;height:100px;margin-right:10px;border:1px solid #f00;}
+			#box li a{display: block; text-decoration: none;color:#f00;line-height:100px;text-align:center;width:100px;transition-duration:0s;position: absolute;z-index:999;}
+			#box .ss a{color: #fff;}
+		</style>
+		<script src="js/shiyong.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="box">
+			<span></span>
+			<ul>
+				<li class="on ss"><a href="">首页</a></li>
+				<li><a href="">首页</a></li>
+				<li><a href="">首页</a></li>
+				<li><a href="">首页</a></li>
+				<li><a href="">首页</a></li>
+				<li><a href="">首页</a></li>
+				<li><a href="">首页</a></li>
+				<li><a href="">首页</a></li>
+				<li><a href="">首页</a></li>
+				<li><a href="">首页</a></li>
+				<li><a href="">首页</a></li>
+			</ul>
+		</div>
+
+	</body>
+	<script>
+		var box=$("#box");
+		var aLi=$("li",box);
+		var aSpan=$("span",box)[0];
+		var oA=$("a",box);
+		var oS=$(".ss",box)[0];
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].index=i;
+			aLi[i].onmouseover=function(){
+				var a=this.index;
+				var w=aSpan.offsetWidth;
+				var b=this.offsetLeft;
+				var c=getStyle(aSpan,"left");
+				for (var i = 0; i<aLi.length;i++) {
+					removeClass(aLi[i],"ss");
+				}
+				var _this=this;
+				
+				startMove(aSpan,{left:a*(w+10)},8,function(){
+					addClass(_this,"ss");
+				});				
+			}
+			aLi[i].onmouseout=function(){
+				var a=this.index;
+				var sw=oS.offsetLeft;
+				for (var i = 0; i<aLi.length;i++) {
+					removeClass(aLi[i],"ss");
+				}
+				startMove(aSpan,{left:sw},3,function(){
+					addClass(oS,"ss");
+				});
+				
+			}
+		}
+	</script>
+</html>
