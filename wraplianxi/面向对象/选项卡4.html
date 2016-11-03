@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>ÎÞddµµ</title>
+<style type="text/css">
+body,div,ul,li{margin:0; padding:0;}
+#div1 div{width:200px; height:200px; background:red; border:1px solid #999;display:none;text-align: center;line-height:200px;color:#ff0;}
+.active{ background: #C7C7C7; color:blue;}
+ body { margin:10px auto 0;padding:20px;}
+ #div1 ul li{ list-style-type:none;padding:5px;float:left;}
+ #div1 ul:after{clear:both;height:0;line-height:0;content:"";display:block;visibility:hidden; }
+ #mi{width: 100px;height: 100px;background:#ff0;position: absolute;}
+</style>
+
+</head>
+<body>
+   <div id="div1">
+        <ul id="tab">
+		    <li>CSS</li>
+		    <li>Web</li>
+			<li>JavaScript</li>
+	    </ul>
+		<div style="display:block">1111</div>
+		<div style="background:aqua">2222</div>
+		<div style="background:blue">3333</div>
+	</div>
+	<div id="mi"></div>
+	<script type="text/javascript">
+		   function Tap(id){//tapÇÐ»»		   		
+		   		var that=this;
+		   		this.but=id.getElementsByTagName("li");
+		   		this.div=id.getElementsByTagName("div");
+		   		len=this.but.length;
+		   		for(var i=0;i<len;i++){
+		   			this.but[i].index=i;
+		   			this.but[i].onclick=function(){
+		   				that.fn(this.index)
+		   			}
+		   		}
+		   }
+		   Tap.prototype.fn=function(n){
+			   	for(var i=0;i<len;i++){
+			   		this.div[i].style.display="none";
+			   	}
+			   	this.div[n].style.display="block";
+		   }
+
+		   
+		   function Drag(id){//ÍÏ×§
+					var that=this;
+					this.oDiv=document.getElementById(id);
+					this.oDiv.onmousedown=function(ev){
+						that.fnDown(ev);
+					}
+				}
+				Drag.prototype={
+					fnDown:function(ev){
+						var that=this;
+						var e=ev||event;
+						this.disX=ev.clientX-this.oDiv.offsetLeft;
+						this.disY=ev.clientY-this.oDiv.offsetTop;
+						document.onmousemove=function(ev){
+							that.fnMove(ev);
+						}
+						document.onmouseup=function(ev){
+							that.fnUp(ev);
+						}
+					},
+					fnMove:function(ev){
+						var e=ev||event;
+						this.oDiv.style.left=e.clientX-this.disX+"px";
+						this.oDiv.style.top=e.clientY-this.disY+"px";
+					},
+					fnUp:function(){
+						document.onmousemove=document.onmouseup=null;	
+					}
+				}
+				
+		   var box=document.getElementById("div1");
+		   var aa=new Tap(box);
+		   var bb=new Drag("mi");
+</script>
+</body>
+</html>

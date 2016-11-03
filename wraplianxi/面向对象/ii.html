@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			ul,li{list-style: none;}
+			#main{position: relative;width:440px;margin:50px auto;}
+			#bd{position: relative;width:400px;height:200px;overflow: hidden;margin-left: 20px;}
+			#box{overflow: hidden;position: absolute;}
+			#box li{width: 400px;height: 200px;overflow:hidden;float: left;}
+			#box li img{width:100%;height:100%;}
+			button{width:20px;height:200px;border:0;position: absolute;z-index: 99;}
+			#prev{left:0px;top:0;}
+			#next{right:0px;top:0;}
+		</style>
+		<script src="tool.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="main">
+			<button id="prev"><</button>
+			<div id="bd">
+				<ul id="box">
+					<li><img src="img/1.jpg" alt=""></li>
+					<li><img src="img/2.jpg" alt=""></li>
+					<li><img src="img/3.jpg" alt=""></li>
+					<li><img src="img/4.jpg" alt=""></li>
+				</ul>
+			</div>
+			<button id="next">></button>
+		</div>
+	</body>
+	<script type="text/javascript">	
+		var Common={//创建环境
+				iw:400,
+				ih:200,
+				box:$("#box"),
+				aLi:$("li",box),
+				bk:null,
+				next:$("#next"),
+				prev:$("#prev")
+		}
+		function Ban(){//创建banner对象
+			off=true,
+			timer=null,
+			n=0,
+			w=Common.iw,
+			h=Common.ih
+		}
+		Ban.prototype={
+			creat:function(){//初始banner
+				var clo=Common.aLi[0].cloneNode(true);
+				Common.box.appendChild(clo);
+				var l=Common.aLi.length;
+				Common.box.style.width=w*l+"px";
+				for(var i=0;i<l;i++){
+						Common.aLi[i].style.width=w+"px";
+						Common.aLi[i].style.height=h+"px";
+				}	
+				var that=this;
+				timer=setInterval(this.move,3000)
+			},
+			nxt:function(){//下一张
+				if(off){
+					clearInterval(timer);
+					this.move();
+				}
+			},
+			pre:function(){//上一张
+				if(off){
+					n=n-1;
+					if(n<0){
+						Common.box.style.left=-(Common.aLi.length-1)*w+"px";
+						n=Common.aLi.length-2;
+					}
+					clearInterval(timer);
+					n=n-1;
+					this.move()
+				}
+			},
+			move:function(){//banner运动函数
+				off=false;
+				clearInterval(timer);
+				n++;
+				startMove(Common.box,{left:-n*w},function(){
+					timer=setInterval(Ban.move,3000);
+					if(n>=Common.aLi.length-1){
+						n=0;
+						Common.box.style.left=0;
+					}
+					off=true;
+				});
+			}
+		}
+	window.onload=function(){
+		Common.bk=new Ban();
+		Common.bk.creat();
+		Common.next.onclick=function(){
+			Common.bk.nxt()
+		}
+		Common.prev.onclick=function(){
+			Common.bk.pre()
+		}
+	}
+	</script>
+</html>

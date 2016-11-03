@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			ul,li{list-style: none;}
+			#li{
+				width: 500px;
+				float: right;
+				border: 3px solid #f00;
+				font-size:16px;
+				font-family: "宋体";
+				margin-right:20px;
+			}
+			#aa{
+				float: left;
+				width:250px;
+				height:440px;
+				border: 1px solid #f00;
+				margin: 30px;
+				text-align: center;
+			}
+			#kuang{width:225px;height:388px;margin:10px auto 3px;border:1px solid #f0f;text-align: left;}
+			#kuang p{line-height:20px; }
+			#lxh{width:50px;height:35px;}
+			#wdn{width:50px;height: 35px;}
+		</style>
+		
+	</head>
+	<body>
+
+<pre id="li">
+内部对象按照使用方式分为动态对象和静态对象
+	var Opp={//静态对象，直接可以对象名.成员
+		name:"小明",
+		age:"13",
+		sex:"man",
+		fn:function(){
+			alert(3)
+		}
+	}
+	console.log(Opp.name)
+	Opp.fn()
+
+
+	function fn(){//动态对象
+		yu=function(){
+			alert(1)
+		}
+		return yu()
+	}
+	fn()
+	function Fn(){//动态对象 用new实例化之
+	后，对象实例名.成员
+		this.xi=function(){
+			alert(2)
+		}
+	}
+	var f=new Fn();
+	f.xi()
+	</pre>
+	<div id="aa">
+	<div id="kuang"></div>
+	<button id="lxh">小花</button>
+	<button id="wdn">尙兲</button>
+	</body>
+	</div>
+	
+
+	<script type="text/javascript">
+		//内部对象按照使用方式分为动态对象和静态对象
+		var Opp={//静态对象，直接可以对象名.成员
+			name:"小明",
+			age:"13",
+			sex:"man",
+			fn:function(){
+				alert(3)
+			}
+		}
+		//console.log(Opp.name)
+		//Opp.fn()
+
+
+		function fn(){//动态对象
+			yu=function(){
+				alert(1)
+			}
+			return yu()
+		}
+		//fn()
+		function Fn(){//动态对象 用new实例化之后，对象实例名.成员
+			this.name="李娜",
+			this.xi=function(){
+				alert(2)
+			}
+		}
+		var f=new Fn();
+		//f.xi()
+		
+		function Xiaom(){
+			this.woman="李小花",
+			this.man="王尙兲",			
+			this.arr1=["你好","王XX，你的名字好难叫啊!","吃饭了吗？小王吧","算了还是不称呼你了","吃的啥?","你好无聊啊!","你是不是傻？","对方已离线"],
+			this.arr2=["好","那你叫我小王吧！","吃了","...","饭","奥，我吃的是米饭","也许吧。。","拜拜"],
+			this.off=true,
+			this.n=0,
+			this.f=0
+		}
+		Xiaom.prototype={
+			lxh:function(){
+				var that=this;
+				lxh.onclick=function(){
+					if(that.off){
+						that.fn(that.woman,that.arr1,that.n)
+						that.n++;
+					}
+				}
+			},
+			wdn:function(){				
+				var that=this;
+				wdn.onclick=function(){
+					if(!that.off){
+						that.fn(that.man,that.arr2,that.f)
+						that.f++;
+					}
+				}
+			},
+			fn:function(name,arr,n){
+				var para=document.createElement("p");
+				var node=document.createTextNode(name+": "+arr[n%arr.length]);
+				para.appendChild(node)
+				kuang.appendChild(para)
+				this.off=!this.off;
+			}
+		}
+		var xm=new Xiaom();
+		 xm.lxh()
+		 xm.wdn()		
+	</script>
+</html>
